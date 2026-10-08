@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>CSV Smart Table</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#182336;background:#f3f6fb;--panel:#fff;--muted:#64748b;--border:#dce4ee;--accent:#2563eb;--soft:#eef4ff;--row:36px;--head:104px}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}button:disabled{opacity:.5;cursor:default}button,input,select,textarea{border:1px solid var(--border);border-radius:8px;background:var(--panel)}button{padding:9px 13px;font-size:13px;font-weight:600}button:hover:not(:disabled){border-color:var(--accent);background:var(--soft)}button.primary{background:var(--accent);color:white;border-color:var(--accent)}button.primary:hover{background:#1d4ed8}input,select{padding:8px;min-width:0}input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}header.app{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 28px;border-bottom:1px solid var(--border);background:var(--panel)}.brand{display:flex;align-items:center;gap:12px}.logo{width:40px;height:40px;display:grid;place-items:center;color:white;background:var(--accent);border-radius:12px;font-size:23px}.brand h1{font-size:19px;margin:0}.brand p{margin:4px 0 0;font-size:12px;color:var(--muted)}.badge{color:var(--muted);font-size:12px}.shell{padding:20px 28px;max-width:1800px;margin:auto}.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.search{flex:1;min-width:200px;max-width:460px;padding:10px 13px}.summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0 10px;min-height:24px;color:var(--muted);font-size:13px}.summary strong{color:inherit}.table-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 3px 14px #172b4d06}.viewport{height:calc(100dvh - 245px);min-height:300px;overflow:auto;position:relative;overscroll-behavior:contain}.grid-head{height:var(--head);position:sticky;top:0;z-index:3;display:grid;background:var(--panel);border-bottom:1px solid var(--border)}.heading{padding:7px 8px;border-right:1px solid var(--border);min-width:0;display:flex;flex-direction:column;gap:5px}.sort{border:0;background:transparent;padding:3px 0;text-align:start;display:flex;justify-content:space-between;align-items:center;gap:7px;border-radius:3px;font-weight:650}.column-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.type{font-size:10px;padding:1px 3px;width:66px}.filter-line{display:flex;gap:4px}.filter-line select{width:76px;font-size:10px;padding:5px 2px}.filter-line input{width:100%;font-size:11px;padding:5px}.heading.active{background:var(--soft)}.spacer{position:relative}.data-row{position:absolute;left:0;height:var(--row);display:grid;contain:layout style}.data-row:nth-child(even){background:#f8faff}.data-row:hover{background:var(--soft)}.cell{padding:8px 10px;border-bottom:1px solid var(--border);border-right:1px solid var(--border);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;direction:auto;unicode-bidi:plaintext}.cell.index{color:var(--muted);font-variant-numeric:tabular-nums;text-align:right;background:#64748b08}.empty{padding:44px 24px;text-align:center;color:var(--muted)}.empty h2{color:inherit;font-size:21px;margin:0 0 10px}.empty p{margin:8px 0;font-size:14px}.drop{margin:30px auto;max-width:620px;padding:34px;border:2px dashed var(--border);border-radius:14px;background:var(--soft)}.dragging{outline:3px dashed var(--accent);outline-offset:-5px}.footer{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;border-top:1px solid var(--border);color:var(--muted);font-size:11px}.notice{color:#b42318;white-space:pre-wrap;overflow-wrap:anywhere;margin:10px 0;font-size:13px}.notice:empty{display:none}progress{width:130px;height:6px;accent-color:var(--accent)}dialog{background:var(--panel);color:inherit;border:1px solid var(--border);border-radius:16px;padding:24px;width:min(700px,94vw);box-shadow:0 20px 70px #0003}dialog::backdrop{background:#0f172a66}dialog h2{margin-top:0;font-size:20px}dialog p{color:var(--muted);font-size:13px}textarea{width:100%;min-height:260px;padding:12px;font-family:ui-monospace,monospace;font-size:12px;resize:vertical}.options{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:12px;margin:12px 0}.options select{font-size:12px}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:700px){header.app{padding:15px}.shell{padding:14px}.badge{display:none}.toolbar{gap:6px}.toolbar button{padding:9px}.search{max-width:none;order:2;flex-basis:100%}.viewport{height:calc(100dvh - 285px)}.footer span:last-child{display:none}.summary{font-size:11px}}@media(prefers-color-scheme:dark){:root{color:#e3eaf5;background:#0c1422;--panel:#131e30;--muted:#9aaac0;--border:#2b3a50;--soft:#1b2f4f;--accent:#6095ff}.data-row:nth-child(even){background:#172338}.notice{color:#ffa89f}button.primary{color:#071424}}
+</style>
+</head>
+<body>
+<header class="app"><div class="brand"><div class="logo" aria-hidden="true">▦</div><div><h1>CSV Smart Table</h1><p>Your data, a clearer view.</p></div></div><span class="badge">Offline · Private · No installation</span></header>
+<main class="shell">
+<div class="toolbar"><button id="open" class="primary">Open CSV</button><button id="paste">Paste data</button><button id="demo">Try 100k rows</button><input id="search" class="search" type="search" placeholder="Search across all columns…" aria-label="Search all columns" disabled><button id="reset" disabled>Reset view</button><button id="export" disabled>Export view</button></div>
+<input id="file" type="file" accept=".csv,.tsv,.txt,text/csv,text/tab-separated-values" hidden>
+<div class="options"><label>Delimiter <select id="delimiter"><option value="auto">Auto-detect</option><option value=",">Comma (,)</option><option value=";">Semicolon (;)</option><option value="tab">Tab</option><option value="|">Pipe (|)</option></select></label><label><input id="hasHeader" type="checkbox" checked> First row is a header</label><label>Encoding <select id="encoding"><option value="utf-8">UTF-8</option><option value="windows-1252">Windows-1252</option><option value="windows-1255">Windows-1255 (Hebrew)</option><option value="utf-16le">UTF-16 LE</option><option value="utf-16be">UTF-16 BE</option></select></label><span class="badge">Import settings apply to the next file or paste.</span></div>
+<div class="summary"><span id="stats" role="status" aria-live="polite">Ready to explore</span><span id="activity"><progress id="progress" hidden></progress><span id="busy"></span></span></div>
+<div id="error" class="notice" role="alert"></div>
+<div class="table-card"><div id="viewport" class="viewport" role="table" tabindex="0" aria-label="CSV table; scroll to browse rows"><div id="welcome" class="empty"><div class="drop"><h2>Turn a CSV into a workspace</h2><p>Drop a file here, open one, or paste your data.</p><p>Search everything. Filter each column. Sort what matters.</p><p>No uploads to a server. No external scripts.</p></div></div><div id="head" class="grid-head" role="row" hidden></div><div id="spacer" class="spacer" role="rowgroup" hidden></div><div id="noResults" class="empty" hidden>No matching rows. Adjust your search or column filters.</div></div><div class="footer"><span id="filename">No file loaded</span><span>Click a header to sort · Shift-click for multi-column sorting · Double-click a cell to inspect</span></div></div>
+</main>
+<dialog id="pasteDialog"><h2>Paste CSV or TSV</h2><p>Quoted values and multiline cells are supported. Use the import settings above for delimiter and headers.</p><textarea id="pasteText" aria-label="CSV data" placeholder="name,city,total&#10;Alex,London,120"></textarea><div class="actions"><button id="cancelPaste">Cancel</button><button id="importPaste" class="primary">View table</button></div></dialog>
+<dialog id="cellDialog"><h2 id="cellTitle">Cell contents</h2><textarea id="cellText" readonly aria-label="Full cell contents"></textarea><div class="actions"><button id="closeCell">Close</button></div></dialog>
+<script>
+'use strict';
+/* The worker is embedded so the downloaded HTML remains entirely self-contained. */
+function workerMain() {
+  'use strict';
+  let rows=[], headers=[], inferred=[], visible=new Uint32Array(0), generation=0, activeQueryId=null;
+  const collator=new Intl.Collator(undefined,{numeric:false,sensitivity:'base'});
+  const yieldTask=()=>new Promise(resolve=>setTimeout(resolve,0));
+  function numberValue(value) {const s=String(value??'').trim();return s!==''&&/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(s)?Number(s):NaN;}
+  function dateValue(value) {const s=String(value??'').trim();if(!/^\d{4}-\d{2}-\d{2}(?:[T ][0-9:.+Z-]+)?$/.test(s))return NaN;const t=Date.parse(s.length===10?s+'T00:00:00Z':s);return Number.isFinite(t)?t:NaN;}
+  function detect(text) {
+    const choices=[',',';','\t','|'],counts=choices.map(()=>[]);let quote=false,line=choices.map(()=>0),n=0;
+    for(let i=0;i<text.length&&n<12;i++){const c=text[i];if(c==='"'){if(quote&&text[i+1]==='"'){i++;continue;}quote=!quote;}if(!quote){const k=choices.indexOf(c);if(k>=0)line[k]++;if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;if(line.some(Boolean)){line.forEach((v,j)=>counts[j].push(v));n++;}line=choices.map(()=>0);}}}
+    if(line.some(Boolean))line.forEach((v,j)=>counts[j].push(v));
+    let best=0,score=-1;counts.forEach((a,j)=>{if(!a.length)return;const positives=a.filter(x=>x>0);const s=positives.length?(Math.min(...positives)+1)*positives.length/a.length:0;if(s>score){score=s;best=j;}});return choices[best];
+  }
+  async function load(msg) {
+    generation++;activeQueryId=null;rows=[];headers=[];inferred=[];visible=new Uint32Array(0);
+    const blob=msg.file||new Blob([msg.text||'']);
+    const decoder=new TextDecoder(msg.encoding||'utf-8',{fatal:true});
+    const CHUNK=512*1024;
+    let delim=msg.delimiter==='tab'?'\t':msg.delimiter,field='',record=[],mode=0,skipLF=false,first=true,line=1,started=false,firstRecord=true,width=0;
+    function emitField(){record.push(field);field='';mode=0;}
+    function emitRecord(){
+      emitField();
+      if(!(record.length===1&&record[0]===''&&!started)){
+        if(record.length>512)throw Error('More than 512 columns. Split very wide files before importing.');
+        width=Math.max(width,record.length);
+        if(firstRecord&&msg.hasHeader){headers=record.map((v,i)=>v.trim()||'Column '+(i+1));}else rows.push(record);
+        firstRecord=false;
+      }
+      record=[];started=false;
+    }
+    function feed(text){
+      for(let i=0;i<text.length;i++){
+        const c=text[i];if(first){first=false;if(c==='\uFEFF')continue;}
+        if(skipLF){skipLF=false;if(c==='\n')continue;}
+        if(mode===2){if(c==='"')mode=3;else{field+=c;if(c==='\n')line++;}started=true;continue;}
+        if(mode===3){if(c==='"'){field+='"';mode=2;continue;}if(c!==delim&&c!=='\n'&&c!=='\r')throw Error('Unexpected character after closing quote near line '+line+'. Check the delimiter.');}
+        if(c===delim){emitField();started=true;}
+        else if(c==='\n'||c==='\r'){emitRecord();line++;if(c==='\r')skipLF=true;}
+        else if(c==='"'){if(mode!==0)throw Error('Unexpected quote near line '+line+'. Quote the entire field and double internal quotes.');mode=2;started=true;}
+        else{field+=c;mode=1;started=true;}
+      }
+    }
+    if(delim==='auto'||!delim){const sample=new TextDecoder(msg.encoding||'utf-8').decode(await blob.slice(0,64*1024).arrayBuffer());delim=detect(sample);}
+    for(let offset=0;offset<blob.size;offset+=CHUNK){feed(decoder.decode(await blob.slice(offset,offset+CHUNK).arrayBuffer(),{stream:true}));postMessage({type:'progress',value:Math.min(1,(offset+CHUNK)/blob.size)});await yieldTask();}
+    feed(decoder.decode());
+    if(mode===2)throw Error('Unclosed quoted field near line '+line+'.');
+    if(started||record.length||field!=='')emitRecord();
+    if(firstRecord)throw Error('The input is empty.');
+    if(!msg.hasHeader)headers=Array.from({length:width},(_,i)=>'Column '+(i+1));
+    while(headers.length<width)headers.push('Column '+(headers.length+1));
+    const seen=new Set();headers=headers.map(h=>{let name=h,n=2;while(seen.has(name))name=h+' ('+(n++)+')';seen.add(name);return name;});
+    inferred=headers.map((_,c)=>{let found=0,nums=true,dates=true;for(let r=0;r<Math.min(rows.length,1000);r++){const s=(rows[r][c]||'').trim();if(!s)continue;found++;if(!Number.isFinite(numberValue(s)))nums=false;if(!Number.isFinite(dateValue(s)))dates=false;}return found&&nums?'number':found&&dates?'date':'text';});
+    postMessage({type:'loaded',headers,inferred,total:rows.length,delimiter:delim});
+  }
+  async function query(msg) {
+    const token=++generation,start=performance.now(),q=(msg.search||'').toLocaleLowerCase(),types=msg.types||inferred;
+    const filters=(msg.filters||[]).filter(f=>f.op==='empty'||f.op==='notEmpty'||f.value!=='').map(f=>({...f,lower:String(f.value).toLocaleLowerCase(),n:numberValue(f.value),d:dateValue(f.value)}));
+    const result=new Uint32Array(rows.length);let count=0;
+    for(let r=0;r<rows.length;r++){
+      if(r%8192===0){await yieldTask();if(token!==generation)return;}
+      const row=rows[r];if(q&&!row.some(v=>v.toLocaleLowerCase().includes(q)))continue;
+      let pass=true;
+      for(const f of filters){const value=row[f.column]||'',s=value.toLocaleLowerCase();let ok;
+        switch(f.op){case 'empty':ok=value.trim()==='';break;case 'notEmpty':ok=value.trim()!=='';break;case 'contains':ok=s.includes(f.lower);break;case 'notContains':ok=!s.includes(f.lower);break;case 'starts':ok=s.startsWith(f.lower);break;case 'eq':case 'ne':{const kind=types[f.column];const a=kind==='number'?numberValue(value):kind==='date'?dateValue(value):s;const b=kind==='number'?f.n:kind==='date'?f.d:f.lower;ok=a===b;if(f.op==='ne')ok=!ok;break;}default:{const kind=types[f.column],a=kind==='number'?numberValue(value):kind==='date'?dateValue(value):s,b=kind==='number'?f.n:kind==='date'?f.d:f.lower;ok=f.op==='gt'?a>b:f.op==='gte'?a>=b:f.op==='lt'?a<b:a<=b;}}
+        if(!ok){pass=false;break;}
+      }
+      if(pass)result[count++]=r;
+    }
+    let matches=result.slice(0,count);const sorts=msg.sorts||[];
+    if(sorts.length){
+      const prepared=[];
+      for(const sort of sorts){const kind=types[sort.column];let values=null;if(kind!=='text'){values=new Float64Array(rows.length);for(let r=0;r<rows.length;r++){values[r]=kind==='number'?numberValue(rows[r][sort.column]):dateValue(rows[r][sort.column]);if(r%16384===0){await yieldTask();if(token!==generation)return;}}}prepared.push({...sort,values});}
+      matches.sort((a,b)=>{for(const s of prepared){let d;if(s.values){const x=s.values[a],y=s.values[b],nx=!Number.isFinite(x),ny=!Number.isFinite(y);if(nx!==ny)return nx?1:-1;d=nx?0:x-y;}else{const x=rows[a][s.column]||'',y=rows[b][s.column]||'';if(!x!==!y)return !x?1:-1;d=collator.compare(x,y);}if(d)return s.direction==='desc'?-d:d;}return a-b;});
+    }
+    if(token!==generation)return;visible=matches;activeQueryId=msg.id;postMessage({type:'result',id:msg.id,count,ms:Math.round(performance.now()-start)});
+  }
+  async function exportCSV(msg){
+    const escape=v=>{const s=String(v??'');return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;};
+    const safe=v=>msg.safe&&/^[=+\-@\t\r]/.test(v)?"'"+v:v;
+    const snapshot=visible;const parts=['\uFEFF'+headers.map(v=>escape(safe(v))).join(',')+'\r\n'];let batch='';
+    for(let i=0;i<snapshot.length;i++){batch+=headers.map((_,c)=>escape(safe(rows[snapshot[i]][c]||''))).join(',')+'\r\n';if(i%4096===4095){parts.push(batch);batch='';await yieldTask();}}if(batch)parts.push(batch);
+    postMessage({type:'export',blob:new Blob(parts,{type:'text/csv;charset=utf-8'})});
+  }
+  onmessage=async event=>{
+    const m=event.data;
+    try{if(m.type==='load')await load(m);else if(m.type==='query')await query(m);else if(m.type==='window'){if(m.queryId!==activeQueryId)return;const end=Math.min(visible.length,m.start+m.size);postMessage({type:'window',request:m.request,queryId:m.queryId,start:m.start,rows:Array.from(visible.slice(m.start,end),i=>({index:i,cells:rows[i]}))});}else if(m.type==='export')await exportCSV(m);}
+    catch(error){postMessage({type:'error',message:error.message,id:m.id});}
+  };
+}
+const $=id=>document.getElementById(id),ROW=36,OVERSCAN=12;
+const workerURL=URL.createObjectURL(new Blob(['('+workerMain.toString()+')()'],{type:'text/javascript'}));
+let worker=null,headers=[],types=[],filters=[],sorts=[],total=0,count=0,queryId=0,requestId=0,loaded=false,timer=null,raf=0,width=0,sourceName='',pending=false,exporting=false;
+const viewport=$('viewport'),spacer=$('spacer'),head=$('head');
+function busy(text){$('busy').textContent=text?' '+text:'';}
+function error(text){$('error').textContent=text||'';}
+function enable(){['search','reset','export'].forEach(id=>$(id).disabled=!loaded||(id==='export'&&(pending||exporting)));}
+function make(tag,cls,text){const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=text;return el;}
+function importData(file,name){
+  clearTimeout(timer);if(worker)worker.terminate();sourceName=name;loaded=false;pending=false;exporting=false;queryId++;requestId++;total=count=0;headers=[];filters=[];sorts=[];$('search').value='';error('');enable();spacer.replaceChildren();spacer.style.height='0px';head.hidden=spacer.hidden=true;$('welcome').hidden=false;$('welcome').querySelector('h2').textContent='Reading your data…';$('noResults').hidden=true;$('filename').textContent=name;$('progress').hidden=false;$('progress').value=0;busy('Parsing…');$('stats').textContent='Loading '+name;
+  try{worker=new Worker(workerURL);worker.onmessage=onWorker;worker.onerror=e=>{error('Background worker failed: '+e.message);busy('');$('progress').hidden=true;};worker.postMessage({type:'load',file,delimiter:$('delimiter').value,encoding:$('encoding').value,hasHeader:$('hasHeader').checked});}
+  catch(e){error('Cannot start the local background worker: '+e.message);busy('');$('progress').hidden=true;}
+}
+function onWorker(event){const m=event.data;
+  if(m.type==='progress'){$('progress').value=m.value;}
+  else if(m.type==='loaded'){headers=m.headers;types=m.inferred;total=m.total;loaded=true;filters=headers.map((_,column)=>({column,op:'contains',value:''}));head.hidden=spacer.hidden=false;viewport.setAttribute('aria-rowcount',total+1);viewport.setAttribute('aria-colcount',headers.length+1);$('welcome').hidden=true;$('progress').hidden=true;buildHeaders();enable();runQuery();}
+  else if(m.type==='result'){if(m.id!==queryId)return;pending=false;count=m.count;spacer.style.height=(count*ROW)+'px';$('stats').textContent=count.toLocaleString()+' of '+total.toLocaleString()+' rows · '+headers.length+' columns · '+m.ms+' ms';busy('');enable();$('noResults').hidden=count!==0;viewport.scrollTop=0;renderWindow();}
+  else if(m.type==='window'){if(m.request!==requestId||m.queryId!==queryId||pending)return;const fragment=document.createDocumentFragment();m.rows.forEach((row,j)=>{const el=make('div','data-row');el.setAttribute('role','row');el.setAttribute('aria-rowindex',m.start+j+2);el.style.cssText='top:'+((m.start+j)*ROW)+'px;grid-template-columns:56px repeat('+headers.length+',180px);width:'+width+'px';const index=make('div','cell index',(row.index+1).toLocaleString());index.setAttribute('role','cell');el.append(index);headers.forEach((h,c)=>{const val=row.cells[c]||'',cell=make('div','cell',val);cell.setAttribute('role','cell');cell.title=val;cell.ondblclick=()=>{$('cellTitle').textContent=h+' · source row '+(row.index+1);$('cellText').value=val;$('cellDialog').showModal();};el.append(cell);});fragment.append(el);});spacer.replaceChildren(fragment);}
+  else if(m.type==='export'){const url=URL.createObjectURL(m.blob),a=document.createElement('a');a.href=url;a.download=sourceName.replace(/\.[^.]+$/,'')+'-view.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),30000);exporting=false;busy('');enable();}
+  else if(m.type==='error'){error(m.message);pending=false;exporting=false;enable();busy('');$('progress').hidden=true;if(!loaded)$('stats').textContent='Import failed';}
+}
+function buildHeaders(){
+  head.replaceChildren();width=56+headers.length*180;head.style.width=spacer.style.width=width+'px';head.style.gridTemplateColumns='56px repeat('+headers.length+',180px)';head.append(make('div','heading','#'));
+  headers.forEach((h,c)=>{const box=make('div','heading');box.classList.toggle('active',!!sorts.find(s=>s.column===c)||!!filters[c].value||['empty','notEmpty'].includes(filters[c].op));const sort=make('button','sort'),name=make('span','column-name',h),arrow=make('span');sort.type='button';sort.title='Sort '+h+'; Shift-click to add a secondary sort';name.title=h;const i=sorts.findIndex(s=>s.column===c);arrow.textContent=i<0?'↕':(sorts[i].direction==='asc'?'↑':'↓')+(sorts.length>1?String(i+1):'');sort.setAttribute('aria-label',h+', '+(i<0?'not sorted':sorts[i].direction));sort.append(name,arrow);box.setAttribute('role','columnheader');if(i>=0)box.setAttribute('aria-sort',sorts[i].direction==='asc'?'ascending':'descending');sort.onclick=e=>{const old=sorts.find(s=>s.column===c),next=!old?'asc':old.direction==='asc'?'desc':null;sorts=e.shiftKey?sorts.filter(s=>s.column!==c):[];if(next){const item={column:c,direction:next};if(e.shiftKey&&i>=0)sorts.splice(Math.min(i,sorts.length),0,item);else sorts.push(item);}buildHeaders();runQuery();};box.append(sort);
+    const type=make('select','type');type.setAttribute('aria-label','Data type for '+h);['text','number','date'].forEach(v=>{const o=make('option',null,v);o.value=v;type.append(o);});type.value=types[c];type.onchange=()=>{types[c]=type.value;runQuery();};box.append(type);
+    const line=make('div','filter-line'),op=make('select'),input=make('input');op.setAttribute('aria-label','Filter operator for '+h);[['contains','Contains'],['notContains','Not incl.'],['eq','Equals'],['ne','Not equal'],['starts','Starts with'],['gt','>'],['gte','≥'],['lt','<'],['lte','≤'],['empty','Empty'],['notEmpty','Not empty']].forEach(([v,t])=>{const o=make('option',null,t);o.value=v;op.append(o);});op.value=filters[c].op;input.value=filters[c].value;input.placeholder='Filter…';input.setAttribute('aria-label','Filter '+h);input.disabled=['empty','notEmpty'].includes(op.value);const update=()=>{filters[c]={column:c,op:op.value,value:input.value};input.disabled=['empty','notEmpty'].includes(op.value);box.classList.toggle('active',!!input.value||input.disabled||sorts.some(s=>s.column===c));scheduleQuery();};op.onchange=update;input.oninput=update;line.append(op,input);box.append(line);head.append(box);
+  });
+}
+function scheduleQuery(){clearTimeout(timer);pending=true;queryId++;requestId++;enable();busy('Waiting for input…');timer=setTimeout(runQuery,200);}
+function runQuery(){clearTimeout(timer);if(!loaded)return;pending=true;queryId++;requestId++;enable();busy('Working…');spacer.replaceChildren();worker.postMessage({type:'query',id:queryId,search:$('search').value,types,filters,sorts});}
+function renderWindow(){if(!loaded||pending)return;const start=Math.max(0,Math.floor((viewport.scrollTop-104)/ROW)-OVERSCAN),size=Math.ceil(viewport.clientHeight/ROW)+OVERSCAN*2+4;worker.postMessage({type:'window',request:++requestId,queryId,start,size});}
+viewport.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(()=>{raf=0;renderWindow();});},{passive:true});window.addEventListener('resize',renderWindow);
+$('open').onclick=()=>$('file').click();$('file').onchange=()=>{const file=$('file').files[0];if(file)importData(file,file.name);$('file').value='';};
+$('paste').onclick=()=>$('pasteDialog').showModal();$('cancelPaste').onclick=()=>$('pasteDialog').close();$('importPaste').onclick=()=>{const text=$('pasteText').value;if(!text.trim())return;$('pasteDialog').close();importData(new Blob([text]),'pasted-data.csv');};$('closeCell').onclick=()=>$('cellDialog').close();
+$('search').oninput=scheduleQuery;$('reset').onclick=()=>{$('search').value='';sorts=[];types=types.map((_,i)=>head.children[i+1].querySelector('.type').value);filters=headers.map((_,column)=>({column,op:'contains',value:''}));buildHeaders();runQuery();};
+$('export').onclick=()=>{if(pending||exporting)return;const safe=confirm('Protect the export against spreadsheet formulas?\n\nOK: prefix cells starting with =, +, -, @, tab or carriage return with an apostrophe (this changes those values).\nCancel: preserve original values exactly.');exporting=true;enable();busy('Preparing export…');worker.postMessage({type:'export',safe});};
+$('demo').onclick=()=>{const countries=['Israel','Germany','Japan','Canada','France'],parts=['ID,Name,Country,Revenue,Date,Status\r\n'];for(let i=1;i<=100000;i++)parts.push(i+',Customer '+i+','+countries[i%5]+','+((i*7919)%100000/100).toFixed(2)+',2025-'+String(1+i%12).padStart(2,'0')+'-'+String(1+i%28).padStart(2,'0')+','+(i%3?'Active':'Pending')+'\r\n');$('hasHeader').checked=true;$('delimiter').value=',';$('encoding').value='utf-8';importData(new Blob(parts),'demo-100k.csv');};
+let dragDepth=0;document.addEventListener('dragenter',e=>{if(!e.dataTransfer.types.includes('Files'))return;e.preventDefault();dragDepth++;viewport.classList.add('dragging');});document.addEventListener('dragover',e=>{if(e.dataTransfer.types.includes('Files'))e.preventDefault();});document.addEventListener('dragleave',()=>{if(--dragDepth<=0){dragDepth=0;viewport.classList.remove('dragging');}});document.addEventListener('drop',e=>{e.preventDefault();dragDepth=0;viewport.classList.remove('dragging');const file=e.dataTransfer.files[0];if(file)importData(file,file.name);});
+window.addEventListener('beforeunload',()=>{if(worker)worker.terminate();URL.revokeObjectURL(workerURL);});
+</script>
+</body>
+</html>
